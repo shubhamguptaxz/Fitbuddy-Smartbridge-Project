@@ -16,8 +16,7 @@ load_dotenv()
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # ─── Configuration ────────────────────────────────────────────────────────────
-# Fetch the key from the environment. 
-# REMOVE the "AIza..." string from here entirely!
+
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
 if not GEMINI_API_KEY:
