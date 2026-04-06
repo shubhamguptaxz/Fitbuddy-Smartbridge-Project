@@ -21,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
 if not GEMINI_API_KEY:
-    print("❌ API Key not found! Make sure it is inside backend/.env")
+    print("API Key not found!")
 
 genai.configure(api_key=GEMINI_API_KEY)
 # Fallback model chain — tries each until one succeeds
