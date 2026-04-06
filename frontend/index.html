@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FitBuddy — Home Workout, No Equipment</title>
+  <meta name="description" content="FitBuddy: Free home workouts for all fitness levels. No equipment needed. AI-powered personalized workout plans for weight loss, muscle gain & wellness.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏋️</text></svg>" />
+</head>
+<body>
+
+<!-- Toast Container -->
+<div class="toast-container" id="toast-container"></div>
+
+<!-- ════════════════════════════════════════════════
+     SCREEN 1: HOME SCREEN
+════════════════════════════════════════════════ -->
+<div class="screen active" id="screen-home">
+
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <div class="top-bar-left">
+      <div class="app-logo">
+        <span class="logo-icon">💪</span>
+        <div>
+          <div class="app-name">FitBuddy</div>
+          <div class="app-tagline">Home Workout · No Equipment</div>
+        </div>
+      </div>
+    </div>
+    <div class="top-bar-right">
+      <button class="icon-btn" id="btn-profile-top" onclick="showScreen('screen-profile')">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- BANNER HERO -->
+  <div class="hero-banner">
+    <div class="hero-content">
+      <div class="hero-badge">✨ AI-Powered</div>
+      <h1 class="hero-title">Gain Muscle &amp;<br>Lose Weight</h1>
+      <p class="hero-subtitle">At Home! No Equipment Needed.</p>
+      <button class="hero-btn" onclick="showScreen('screen-profile')">Start Now →</button>
+    </div>
+    <div class="hero-figure">
+      <div class="hero-figure-inner">
+        <div class="figure-man">🏋️</div>
+        <div class="figure-ring ring-1"></div>
+        <div class="figure-ring ring-2"></div>
+        <div class="figure-ring ring-3"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STREAK TRACKER -->
+  <div class="streak-bar">
+    <div class="streak-item">
+      <div class="streak-val" id="streak-count">0</div>
+      <div class="streak-lab">Day Streak 🔥</div>
+    </div>
+    <div class="streak-divider"></div>
+    <div class="streak-item">
+      <div class="streak-val" id="total-workouts">0</div>
+      <div class="streak-lab">Total Workouts</div>
+    </div>
+    <div class="streak-divider"></div>
+    <div class="streak-item">
+      <div class="streak-val" id="total-cal">0</div>
+      <div class="streak-lab">Kcal Burned</div>
+    </div>
+  </div>
+
+  <!-- FOCUS AREAS -->
+  <div class="section-header">
+    <div class="section-title">Focus Area</div>
+    <button class="section-link" onclick="showAllFocus()">See All</button>
+  </div>
+  <div class="focus-grid">
+    <div class="focus-card" data-focus="full_body" onclick="selectFocus('full_body')">
+      <div class="focus-emoji">🔥</div>
+      <div class="focus-name">Full Body</div>
+      <div class="focus-count">12 exercises</div>
+    </div>
+    <div class="focus-card" data-focus="abs" onclick="selectFocus('abs')">
+      <div class="focus-emoji">⚡</div>
+      <div class="focus-name">ABS</div>
+      <div class="focus-count">8 exercises</div>
+    </div>
+    <div class="focus-card" data-focus="chest" onclick="selectFocus('chest')">
+      <div class="focus-emoji">💪</div>
+      <div class="focus-name">Chest</div>
+      <div class="focus-count">7 exercises</div>
+    </div>
+    <div class="focus-card" data-focus="arms" onclick="selectFocus('arms')">
+      <div class="focus-emoji">🦾</div>
+      <div class="focus-name">Arms</div>
+      <div class="focus-count">6 exercises</div>
+    </div>
+    <div class="focus-card" data-focus="legs" onclick="selectFocus('legs')">
+      <div class="focus-emoji">🦵</div>
+      <div class="focus-name">Legs</div>
+      <div class="focus-count">9 exercises</div>
+    </div>
+    <div class="focus-card" data-focus="back" onclick="selectFocus('back')">
+      <div class="focus-emoji">🏊</div>
+      <div class="focus-name">Back</div>
+      <div class="focus-count">6 exercises</div>
+    </div>
+  </div>
+
+  <!-- LEVEL PLANS -->
+  <div class="section-header">
+    <div class="section-title">For All Levels</div>
+  </div>
+  <div class="level-cards">
+    <div class="level-card beginner" onclick="selectLevel('beginner')">
+      <div class="level-badge">BEGINNER</div>
+      <div class="level-emoji">🌱</div>
+      <div class="level-name">Beginner</div>
+      <div class="level-desc">Start your journey</div>
+    </div>
+    <div class="level-card intermediate" onclick="selectLevel('intermediate')">
+      <div class="level-badge">INTERMEDIATE</div>
+      <div class="level-emoji">⚡</div>
+      <div class="level-name">Intermediate</div>
+      <div class="level-desc">Step up the pace</div>
+    </div>
+    <div class="level-card advanced" onclick="selectLevel('advanced')">
+      <div class="level-badge">ADVANCED</div>
+      <div class="level-emoji">🔥</div>
+      <div class="level-name">Advanced</div>
+      <div class="level-desc">Push your limits</div>
+    </div>
+  </div>
+
+  <!-- 4-WEEK PLAN -->
+  <div class="section-header">
+    <div class="section-title">4 Weeks Plan</div>
+    <button class="section-link" onclick="showWeekPlan()">View All</button>
+  </div>
+  <div class="week-plan-card" onclick="showWeekPlan()">
+    <div class="week-plan-info">
+      <div class="week-plan-title">Full Body Challenge</div>
+      <div class="week-plan-subtitle">4 Weeks · 28 Days · AI-Powered</div>
+      <div class="week-plan-calories">1200–2200 KCAL / WEEK</div>
+    </div>
+    <div class="week-bars">
+      <div class="week-bar-row">
+        <span>Week 1</span>
+        <div class="week-bar"><div class="week-bar-fill" style="width:40%"></div></div>
+        <span class="week-kcal">1200 Kcal</span>
+      </div>
+      <div class="week-bar-row">
+        <span>Week 2</span>
+        <div class="week-bar"><div class="week-bar-fill" style="width:60%"></div></div>
+        <span class="week-kcal">1600 Kcal</span>
+      </div>
+      <div class="week-bar-row">
+        <span>Week 3</span>
+        <div class="week-bar"><div class="week-bar-fill" style="width:80%"></div></div>
+        <span class="week-kcal">1900 Kcal</span>
+      </div>
+      <div class="week-bar-row">
+        <span>Week 4</span>
+        <div class="week-bar"><div class="week-bar-fill" style="width:100%"></div></div>
+        <span class="week-kcal">2200 Kcal</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- AI PLANNER CARD -->
+  <div class="ai-planner-card" onclick="showScreen('screen-profile')">
+    <div class="ai-planner-left">
+      <div class="ai-tag">✨ AI POWERED</div>
+      <div class="ai-title">Get Your Personalized<br>7-Day Workout Plan</div>
+      <div class="ai-sub">Powered by Google Gemini</div>
+      <button class="ai-btn">Generate Free →</button>
+    </div>
+    <div class="ai-icon">🤖</div>
+  </div>
+
+</div><!-- /screen-home -->
+
+
+<!-- ════════════════════════════════════════════════
+     SCREEN 2: PROFILE / INPUT
+════════════════════════════════════════════════ -->
+<div class="screen" id="screen-profile">
+  <div class="screen-header">
+    <button class="back-btn" onclick="showScreen('screen-home')">←</button>
+    <div class="screen-title">Your Profile</div>
+    <div></div>
+  </div>
+
+  <div class="profile-body">
+
+    <div class="profile-avatar">
+      <span class="avatar-icon">👤</span>
+    </div>
+
+    <div class="input-section">
+      <div class="input-label">Full Name</div>
+      <input type="text" id="user-name" class="hw-input" placeholder="e.g. Alex Johnson" />
+    </div>
+
+    <div class="input-row">
+      <div class="input-section half">
+        <div class="input-label">Age</div>
+        <input type="number" id="user-age" class="hw-input" placeholder="e.g. 25" min="13" max="100" />
+      </div>
+      <div class="input-section half">
+        <div class="input-label">Weight (kg)</div>
+        <input type="number" id="user-weight" class="hw-input" placeholder="e.g. 70" step="0.1" />
+      </div>
+    </div>
+
+    <div class="input-section">
+      <div class="input-label">Height (cm)</div>
+      <input type="number" id="user-height" class="hw-input" placeholder="e.g. 175" min="100" max="250" />
+    </div>
+
+    <!-- GOAL SELECTOR -->
+    <div class="input-section">
+      <div class="input-label">Fitness Goal</div>
+      <div class="goal-chips">
+        <div class="goal-chip active" data-goal="weight_loss" onclick="selectGoal('weight_loss')">
+          <span>🔥</span> Lose Weight
+        </div>
+        <div class="goal-chip" data-goal="muscle_gain" onclick="selectGoal('muscle_gain')">
+          <span>💪</span> Build Muscle
+        </div>
+        <div class="goal-chip" data-goal="general_wellness" onclick="selectGoal('general_wellness')">
+          <span>🌿</span> Stay Fit
+        </div>
+      </div>
+    </div>
+
+    <!-- LEVEL SELECTOR -->
+    <div class="input-section">
+      <div class="input-label">Fitness Level</div>
+      <div class="level-chips">
+        <div class="level-chip" data-level="beginner" onclick="selectLevel('beginner')">🌱 Beginner</div>
+        <div class="level-chip active" data-level="intermediate" onclick="selectLevel('intermediate')">⚡ Intermediate</div>
+        <div class="level-chip" data-level="advanced" onclick="selectLevel('advanced')">🔥 Advanced</div>
+      </div>
+    </div>
+
+    <!-- DAYS PER WEEK -->
+    <div class="input-section">
+      <div class="input-label">Days per Week</div>
+      <div class="days-picker">
+        <button class="day-pick" data-day="3" onclick="selectDays(3)">3</button>
+        <button class="day-pick active" data-day="4" onclick="selectDays(4)">4</button>
+        <button class="day-pick" data-day="5" onclick="selectDays(5)">5</button>
+        <button class="day-pick" data-day="6" onclick="selectDays(6)">6</button>
+        <button class="day-pick" data-day="7" onclick="selectDays(7)">7</button>
+      </div>
+    </div>
+
+    <button class="red-btn" id="btn-generate" onclick="generatePlan()">
+      <span class="btn-spinner" id="btn-spinner" style="display:none"></span>
+      <span id="btn-text">🚀 Generate My Plan</span>
+    </button>
+
+  </div>
+</div><!-- /screen-profile -->
+
+
+<!-- ════════════════════════════════════════════════
+     SCREEN 3: EXERCISE LIST (FOCUS AREA)
+════════════════════════════════════════════════ -->
+<div class="screen" id="screen-exercise-list">
+  <div class="screen-header">
+    <button class="back-btn" onclick="showScreen('screen-home')">←</button>
+    <div class="screen-title" id="exercise-list-title">Full Body</div>
+    <div class="header-badge" id="exercise-list-badge">12 exercises</div>
+  </div>
+
+  <!-- LEVEL FILTER -->
+  <div class="level-filter">
+    <button class="filter-btn active" data-filter="all" onclick="filterExercises('all')">All</button>
+    <button class="filter-btn" data-filter="beginner" onclick="filterExercises('beginner')">Beginner</button>
+    <button class="filter-btn" data-filter="intermediate" onclick="filterExercises('intermediate')">Intermediate</button>
+    <button class="filter-btn" data-filter="advanced" onclick="filterExercises('advanced')">Advanced</button>
+  </div>
+
+  <div class="exercise-list-container" id="exercise-list-container">
+    <!-- filled by JS -->
+  </div>
+
+  <div class="bottom-action">
+    <button class="red-btn" onclick="startWorkout()">▶ Start Workout</button>
+  </div>
+</div><!-- /screen-exercise-list -->
+
+
+<!-- ════════════════════════════════════════════════
+     SCREEN 4: WORKOUT PLAYER
+════════════════════════════════════════════════ -->
+<div class="screen" id="screen-workout">
+  <div class="workout-header">
+    <button class="back-btn-white" onclick="confirmExitWorkout()">←</button>
+    <div class="workout-progress-info">
+      <div class="workout-ex-label" id="workout-ex-label">Exercise 1 / 8</div>
+      <div class="workout-progress-bar-wrap">
+        <div class="workout-progress-bar" id="workout-progress-bar" style="width:0%"></div>
+      </div>
+    </div>
+    <button class="skip-btn" onclick="nextExercise()">Skip</button>
+  </div>
+
+  <!-- EXERCISE ANIMATION AREA -->
+  <div class="exercise-animation-area">
+    <div class="exercise-emoji-display" id="exercise-emoji">🏋️</div>
+    <div class="exercise-anim-ring"></div>
+    <div class="exercise-level-tag" id="exercise-level-tag">Intermediate</div>
+  </div>
+
+  <!-- EXERCISE INFO -->
+  <div class="exercise-info-panel">
+    <div class="ex-name" id="ex-name">Push-Ups</div>
+    <div class="ex-focus-tag" id="ex-focus-tag">Chest · Arms</div>
+
+    <div class="ex-stats-row">
+      <div class="ex-stat-box">
+        <div class="ex-stat-val" id="ex-sets">3</div>
+        <div class="ex-stat-lab">Sets</div>
+      </div>
+      <div class="ex-stat-box highlight">
+        <div class="ex-stat-val" id="ex-reps">15</div>
+        <div class="ex-stat-lab">Reps</div>
+      </div>
+      <div class="ex-stat-box">
+        <div class="ex-stat-val" id="ex-rest">30s</div>
+        <div class="ex-stat-lab">Rest</div>
+      </div>
+    </div>
+
+    <!-- TIMER / REP COUNTER -->
+    <div class="timer-area">
+      <div class="timer-ring-wrap">
+        <svg class="timer-svg" viewBox="0 0 120 120">
+          <circle class="timer-bg-circle" cx="60" cy="60" r="52"/>
+          <circle class="timer-progress-circle" id="timer-circle" cx="60" cy="60" r="52"
+            stroke-dasharray="326.7" stroke-dashoffset="0"/>
+        </svg>
+        <div class="timer-inner">
+          <div class="timer-count" id="timer-count">00</div>
+          <div class="timer-label" id="timer-label">secs</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ex-tip-box" id="ex-tip-box">Keep your core tight and back straight.</div>
+
+    <!-- CONTROLS -->
+    <div class="workout-controls">
+      <button class="ctrl-btn" onclick="prevExercise()">⏮ Prev</button>
+      <button class="ctrl-btn main-ctrl" id="btn-start-stop" onclick="toggleTimer()">▶ Start</button>
+      <button class="ctrl-btn" onclick="nextExercise()">Next ⏭</button>
+    </div>
+  </div>
+</div><!-- /screen-workout -->
+
+
+<!-- ════════════════════════════════════════════════
+     SCREEN 5: AI PLAN RESULT
+════════════════════════════════════════════════ -->
+<div class="screen" id="screen-plan">
+  <div class="screen-header">
+    <button class="back-btn" onclick="showScreen('screen-home')">←</button>
+    <div class="screen-title">Your 7-Day Plan</div>
+    <div class="header-badge" id="plan-user-badge">AI</div>
+  </div>
+
+  <!-- Plan Loading -->
+  <div id="plan-loading" style="display:none" class="plan-loading">
+    <div class="loading-robot">🤖</div>
+    <div class="loading-title">Generating Your Plan...</div>
+    <div class="loading-sub">Gemini AI is crafting your personalized routine</div>
+    <div class="loading-bar-wrap">
+      <div class="loading-bar-fill" id="loading-bar-fill"></div>
+    </div>
+    <div class="loading-tip" id="loading-tip">Analyzing your profile...</div>
+  </div>
+
+  <!-- Plan Content -->
+  <div id="plan-content" style="display:none">
+
+    <!-- Plan Summary Card -->
+    <div class="plan-summary-card">
+      <div class="plan-summary-tag">✨ AI Personalized</div>
+      <div class="plan-summary-title" id="plan-title">Your Personalized Plan</div>
+      <div class="plan-summary-sub" id="plan-goal-summary"></div>
+      <div class="plan-meta-row">
+        <div class="plan-meta-chip" id="plan-meta-goal">🎯 Goal</div>
+        <div class="plan-meta-chip" id="plan-meta-level">⚡ Level</div>
+        <div class="plan-meta-chip">📅 7 Days</div>
+        <div class="plan-meta-chip" id="plan-meta-uid">👤 ID: —</div>
+      </div>
+    </div>
+
+    <!-- Weekly Overview -->
+    <div class="weekly-overview" id="weekly-overview"></div>
+
+    <!-- Day Tabs -->
+    <div class="day-tabs" id="day-tabs"></div>
+
+    <!-- Day Detail -->
+    <div class="day-detail-card" id="day-detail-card"></div>
+
+    <!-- Weekly Tips -->
+    <div class="weekly-tips-section" id="weekly-tips-section"></div>
+
+    <!-- Action Row -->
+    <div class="plan-action-row">
+      <button class="outline-btn" onclick="showScreen('screen-feedback')">✏️ Adjust Plan</button>
+      <button class="red-btn" id="btn-start-plan" onclick="startPlanWorkout()">▶ Start Today</button>
+    </div>
+
+  </div>
+</div><!-- /screen-plan -->
+
+
+<!-- ════════════════════════════════════════════════
+     SCREEN 6: FEEDBACK / UPDATE PLAN
+════════════════════════════════════════════════ -->
+<div class="screen" id="screen-feedback">
+  <div class="screen-header">
+    <button class="back-btn" onclick="showScreen('screen-plan')">←</button>
+    <div class="screen-title">Adjust Your Plan</div>
+    <div></div>
+  </div>
+
+  <div class="profile-body">
+    <div class="feedback-intro">
+      <div class="feedback-intro-icon">✏️</div>
+      <div class="feedback-intro-title">Tell us what to change</div>
+      <div class="feedback-intro-sub">Share your feedback and AI will refine your plan</div>
+    </div>
+
+    <div class="input-section">
+      <div class="input-label">Your User ID</div>
+      <input type="number" id="feedback-user-id" class="hw-input" placeholder="Enter your User ID" />
+    </div>
+
+    <div class="input-section">
+      <div class="input-label">Quick Feedback</div>
+      <div class="feedback-chips">
+        <div class="fb-chip" onclick="applyChip('More focus on cardio and fat burning')">🏃 More cardio</div>
+        <div class="fb-chip" onclick="applyChip('Include more rest days and recovery time')">😴 More rest</div>
+        <div class="fb-chip" onclick="applyChip('Focus more on upper body exercises')">💪 Upper body</div>
+        <div class="fb-chip" onclick="applyChip('Add more leg and glute exercises')">🦵 Leg day</div>
+        <div class="fb-chip" onclick="applyChip('Make workouts shorter, about 30 minutes')">⏱ Shorter</div>
+        <div class="fb-chip" onclick="applyChip('Reduce intensity, I am a beginner')">🌱 Easier</div>
+      </div>
+    </div>
+
+    <div class="input-section">
+      <div class="input-label">Describe your changes</div>
+      <textarea id="feedback-text" class="hw-textarea" placeholder="e.g. I want more cardio and fewer rest days..."></textarea>
+    </div>
+
+    <button class="red-btn" id="btn-update" onclick="updatePlan()">✏️ Update My Plan</button>
+  </div>
+</div><!-- /screen-feedback -->
+
+
+<!-- ════════════════════════════════════════════════
+     SCREEN 7: NUTRITION
+════════════════════════════════════════════════ -->
+<div class="screen" id="screen-nutrition">
+  <div class="screen-header">
+    <button class="back-btn" onclick="showScreen('screen-home')">←</button>
+    <div class="screen-title">Nutrition &amp; Diet</div>
+    <div></div>
+  </div>
+
+  <div class="profile-body">
+    <div class="nutrition-hero">
+      <div class="nutrition-hero-icon">🥗</div>
+      <div class="nutrition-hero-title">Fuel Your Fitness</div>
+      <div class="nutrition-hero-sub">AI-powered nutrition tips tailored to your goal</div>
+    </div>
+
+    <div class="input-section">
+      <div class="input-label">User ID (optional)</div>
+      <input type="number" id="nutrition-user-id" class="hw-input" placeholder="Enter your User ID" />
+    </div>
+
+    <div class="input-section">
+      <div class="input-label">Your Fitness Goal</div>
+      <div class="goal-chips">
+        <div class="goal-chip active" data-nutr-goal="weight_loss" onclick="selectNutrGoal('weight_loss')">🔥 Lose Weight</div>
+        <div class="goal-chip" data-nutr-goal="muscle_gain" onclick="selectNutrGoal('muscle_gain')">💪 Build Muscle</div>
+        <div class="goal-chip" data-nutr-goal="general_wellness" onclick="selectNutrGoal('general_wellness')">🌿 Stay Fit</div>
+      </div>
+    </div>
+
+    <button class="red-btn" id="btn-nutrition" onclick="getNutritionTip()">🥗 Get Nutrition Plan</button>
+
+    <!-- Loading -->
+    <div id="nutrition-loading" style="display:none;text-align:center;padding:32px">
+      <div style="font-size:48px;animation:bounce 1s infinite">🥦</div>
+      <div style="font-weight:700;margin-top:12px">Preparing your nutrition plan...</div>
+    </div>
+
+    <!-- Result -->
+    <div id="nutrition-result" style="display:none"></div>
+  </div>
+</div><!-- /screen-nutrition -->
+
+
+<!-- ════════════════════════════════════════════════
+     SCREEN 8: WORKOUT COMPLETE
+════════════════════════════════════════════════ -->
+<div class="screen" id="screen-complete">
+  <div class="complete-screen">
+    <div class="complete-trophy">🏆</div>
+    <div class="complete-title">Workout Complete!</div>
+    <div class="complete-sub" id="complete-sub">Amazing job today!</div>
+
+    <div class="complete-stats-row">
+      <div class="complete-stat">
+        <div class="cs-val" id="cs-duration">0:00</div>
+        <div class="cs-lab">Duration</div>
+      </div>
+      <div class="complete-stat highlight">
+        <div class="cs-val" id="cs-exercises">0</div>
+        <div class="cs-lab">Exercises</div>
+      </div>
+      <div class="complete-stat">
+        <div class="cs-val" id="cs-kcal">0</div>
+        <div class="cs-lab">Kcal</div>
+      </div>
+    </div>
+
+    <div class="complete-motivate" id="complete-motivate">
+      "Every workout brings you one step closer to your goal. Keep going!"
+    </div>
+
+    <div class="complete-actions">
+      <button class="outline-btn" onclick="showScreen('screen-home')">🏠 Home</button>
+      <button class="red-btn" onclick="restartWorkout()">🔄 Again</button>
+    </div>
+  </div>
+</div><!-- /screen-complete -->
+
+
+<!-- ════════════════════════════════════════════════
+     BOTTOM NAV
+════════════════════════════════════════════════ -->
+<nav class="bottom-nav" id="bottom-nav">
+  <button class="nav-item active" data-nav="home" onclick="navTo('home')">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    <span>Home</span>
+  </button>
+  <button class="nav-item" data-nav="workout" onclick="navTo('workout-list')">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 4v6a6 6 0 0 0 12 0V4"/><line x1="6" y1="20" x2="18" y2="20"/><line x1="12" y1="16" x2="12" y2="20"/></svg>
+    <span>Workout</span>
+  </button>
+  <button class="nav-item" data-nav="plan" onclick="navTo('plan')">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+    <span>Plan</span>
+  </button>
+  <button class="nav-item" data-nav="nutrition" onclick="navTo('nutrition')">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 0 1 10 10 10 10 0 0 1-10 10A10 10 0 0 1 2 12 10 10 0 0 1 12 2z"/><path d="M12 6v6l4 2"/></svg>
+    <span>Diet</span>
+  </button>
+  <button class="nav-item" data-nav="profile" onclick="navTo('profile')">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+    <span>Profile</span>
+  </button>
+</nav>
+
+<script src="/static/app.js"></script>
+</body>
+</html>
